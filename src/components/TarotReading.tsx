@@ -1,6 +1,7 @@
-import { useCallback, useMemo, useState } from 'react'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { tarotCards, type TarotCard } from '../data/tarotCards'
+import { specialCard, type ReadingMode } from '../data/readingAccess'
 import {
   spreads,
   getSpreadCardCount,
@@ -10,6 +11,10 @@ import {
 import { getCardImageUrl } from '../utils/cardImages'
 import { buildReadingSummary, type DrawnCard } from '../utils/readingSummary'
 import { CardImage } from './CardImage'
+import { ReadingAccessGate } from './ReadingAccessGate'
+import { SpecialInvokedCard } from './SpecialInvokedCard'
+
+const SESSION_KEY = 'taro-reading-mode'
 
 function shuffleDeck(): TarotCard[] {
   const deck = [...tarotCards]
@@ -39,51 +44,151 @@ function shuffleDuration(cardCount: number): number {
   return 1000 + cardCount * 120
 }
 
+function loadStoredMode(): ReadingMode | null {
+  const stored = sessionStorage.getItem(SESSION_KEY)
+  if (stored === 'standard' || stored === 'special') return stored
+  return null
+}
+
 export function TarotReading() {
+  const [readingMode, setReadingMode] = useState<ReadingMode | null>(loadStoredMode)
+
+  const handleUnlock = (mode: ReadingMode) => {
+    sessionStorage.setItem(SESSION_KEY, mode)
+    setReadingMode(mode)
+  }
+
+  const handleLock = () => {
+    sessionStorage.removeItem(SESSION_KEY)
+    setReadingMode(null)
+  }
+
+  if (!readingMode) {
+    return (
+      <section className="reading-experience" aria-labelledby="reading-title">
+        <header className="reading-header">
+          <span className="section-label">Consulta online</span>
+          <h1 id="reading-title">Sua tiragem</h1>
+          <p>O oráculo está selado. Leia o segredo e informe a senha para abrir o ritual.</p>
+        </header>
+        <ReadingAccessGate onUnlock={handleUnlock} />
+      </section>
+    )
+  }
+
+  return <TarotReadingSession key={readingMode} mode={readingMode} onLock={handleLock} />
+}
+
+function TarotReadingSession({
+  mode,
+  onLock,
+}: {
+  mode: ReadingMode
+  onLock: () => void
+}) {
   const [spread, setSpread] = useState<SpreadType>('three')
   const [question, setQuestion] = useState('')
   const [drawn, setDrawn] = useState<DrawnCard[]>([])
   const [isShuffling, setIsShuffling] = useState(false)
   const [hasDrawn, setHasDrawn] = useState(false)
+  const [specialRevealed, setSpecialRevealed] = useState(false)
 
+  const isSpecial = mode === 'special'
+
+  useEffect(() => {
+    if (!isSpecial) return
+
+    let cancelled = false
+    setIsShuffling(true)
+    setSpecialRevealed(false)
+    setHasDrawn(false)
+
+    const img = new Image()
+    img.src = specialCard.imageUrl
+
+    const timer = window.setTimeout(() => {
+      if (cancelled) return
+      setSpecialRevealed(true)
+      setHasDrawn(true)
+      setIsShuffling(false)
+    }, 1600)
+
+    return () => {
+      cancelled = true
+      window.clearTimeout(timer)
+    }
+  }, [isSpecial])
   const config = spreads.find((s) => s.id === spread)!
   const count = getSpreadCardCount(spread)
 
   const summary = useMemo(() => {
-    if (!hasDrawn || drawn.length === 0) return null
+    if (isSpecial || !hasDrawn || drawn.length === 0) return null
     return buildReadingSummary(spread, drawn, question)
-  }, [hasDrawn, drawn, spread, question])
+  }, [isSpecial, hasDrawn, drawn, spread, question])
 
-  const handleDraw = useCallback(() => {
-    setIsShuffling(true)
+  const resetDraw = useCallback(() => {
     setHasDrawn(false)
     setDrawn([])
+    setSpecialRevealed(false)
+  }, [])
 
-    setTimeout(() => {
+  const invokeSpecial = useCallback(() => {
+    setIsShuffling(true)
+    setSpecialRevealed(false)
+
+    window.setTimeout(() => {
+      setSpecialRevealed(true)
+      setHasDrawn(true)
+      setIsShuffling(false)
+    }, 1600)
+  }, [])
+
+  const handleDraw = useCallback(() => {
+    if (isSpecial) {
+      invokeSpecial()
+      return
+    }
+
+    if (hasDrawn) {
+      resetDraw()
+      return
+    }
+
+    setIsShuffling(true)
+    window.setTimeout(() => {
       const result = drawCards(count)
       preloadImages(result)
       setDrawn(result)
-      setIsShuffling(false)
       setHasDrawn(true)
+      setIsShuffling(false)
     }, shuffleDuration(count))
-  }, [count])
+  }, [hasDrawn, resetDraw, isSpecial, count, invokeSpecial])
 
   return (
     <section className="reading-experience" aria-labelledby="reading-title">
       <header className="reading-header">
         <span className="section-label">Consulta online</span>
-        <h1 id="reading-title">Sua tiragem</h1>
+        <h1 id="reading-title">{isSpecial ? 'Ritual de invocação' : 'Sua tiragem'}</h1>
         <p>
-          Escolha entre 1 e 10 cartas — da resposta rápida à Cruz Celta completa.
+          {isSpecial
+            ? 'Portal secreto aberto — a Feiticeira Thamy será invocada automaticamente.'
+            : 'Escolha entre 1 e 10 cartas — da resposta rápida à Cruz Celta completa.'}
         </p>
-        <Link to="/guia" className="reading-guide-link">
-          Ver guia completo das 78 cartas →
-        </Link>
+        <div className="reading-header-actions">
+          <Link to="/guia" className="reading-guide-link">
+            Ver guia completo das 78 cartas →
+          </Link>
+          <button type="button" className="lock-session-btn" onClick={onLock}>
+            Encerrar sessão
+          </button>
+        </div>
       </header>
 
       <div className="reading-panel">
         <label className="reading-question-field">
-          <span>Sua pergunta ou intenção <em className="optional-tag">(opcional)</em></span>
+          <span>
+            Sua pergunta ou intenção <em className="optional-tag">(opcional)</em>
+          </span>
           <input
             type="text"
             value={question}
@@ -93,19 +198,25 @@ export function TarotReading() {
           />
         </label>
 
-        <SpreadOptions spread={spread} setSpread={setSpread} isShuffling={isShuffling} />
+        {!isSpecial && (
+          <SpreadOptions spread={spread} setSpread={setSpread} isShuffling={isShuffling} />
+        )}
 
         <button
           type="button"
-          className="reading-draw-btn"
+          className={`reading-draw-btn ${isSpecial ? 'reading-draw-btn--special' : ''}`}
           onClick={handleDraw}
           disabled={isShuffling}
         >
           {isShuffling ? (
             <>
               <span className="shuffle-spinner" aria-hidden="true" />
-              Embaralhando {count} cartas...
+              {isSpecial ? 'Invocando...' : `Embaralhando ${count} cartas...`}
             </>
+          ) : isSpecial && hasDrawn ? (
+            'Invocar novamente'
+          ) : isSpecial ? (
+            'Invocar carta'
           ) : hasDrawn ? (
             'Nova tiragem'
           ) : (
@@ -114,15 +225,13 @@ export function TarotReading() {
         </button>
       </div>
 
-      {isShuffling && (
-        <div className="shuffle-stage" aria-hidden="true">
-          {Array.from({ length: Math.min(count, 7) }).map((_, i) => (
-            <div key={i} className="shuffle-card" style={{ animationDelay: `${i * 0.08}s` }} />
-          ))}
-        </div>
+      {isShuffling && <ShuffleStage isSpecial={isSpecial} count={count} />}
+
+      {isSpecial && specialRevealed && !isShuffling && (
+        <SpecialInvokedCard question={question} />
       )}
 
-      {hasDrawn && drawn.length > 0 && !isShuffling && (
+      {!isSpecial && hasDrawn && drawn.length > 0 && !isShuffling && (
         <ReadingResults
           config={config}
           spread={spread}
@@ -132,6 +241,17 @@ export function TarotReading() {
         />
       )}
     </section>
+  )
+}
+
+function ShuffleStage({ isSpecial, count }: { isSpecial: boolean; count: number }) {
+  const n = isSpecial ? 5 : Math.min(count, 7)
+  return (
+    <div className={`shuffle-stage ${isSpecial ? 'shuffle-stage--special' : ''}`} aria-hidden="true">
+      {Array.from({ length: n }).map((_, i) => (
+        <div key={i} className="shuffle-card" style={{ animationDelay: `${i * 0.08}s` }} />
+      ))}
+    </div>
   )
 }
 
