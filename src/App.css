@@ -1,0 +1,976 @@
+.app {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1.25rem 4rem;
+}
+
+/* Header */
+.site-header {
+  padding: 1.25rem 0 1rem;
+}
+
+.header-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--text-bright);
+}
+
+.logo-symbol {
+  font-size: 1.75rem;
+  color: var(--gold);
+}
+
+.main-nav {
+  display: flex;
+  gap: 1.5rem;
+}
+
+.main-nav a {
+  font-size: 0.95rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-muted);
+}
+
+.main-nav a:hover,
+.main-nav a.active {
+  color: var(--gold);
+}
+
+.main-nav a.active {
+  position: relative;
+}
+
+.main-nav a.active::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -6px;
+  height: 2px;
+  background: var(--gold);
+  border-radius: 1px;
+}
+
+.hero {
+  text-align: center;
+  max-width: 640px;
+  margin: 0 auto;
+}
+
+.hero p {
+  font-size: 1.125rem;
+  color: var(--text-muted);
+  margin-bottom: 2rem;
+}
+
+.cta-button {
+  display: inline-block;
+  padding: 0.85rem 2rem;
+  background: linear-gradient(135deg, var(--gold-dim), var(--gold));
+  color: var(--bg-deep);
+  font-weight: 600;
+  border-radius: 999px;
+  letter-spacing: 0.04em;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.cta-button:hover {
+  color: var(--bg-deep);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(212, 168, 83, 0.35);
+}
+
+/* Sections */
+main {
+  display: flex;
+  flex-direction: column;
+  gap: 4rem;
+  margin-top: 1rem;
+}
+
+.section-header {
+  text-align: center;
+  max-width: 560px;
+  margin: 0 auto 2.5rem;
+}
+
+.section-label {
+  display: inline-block;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: var(--gold);
+  margin-bottom: 0.5rem;
+}
+
+.section-intro {
+  color: var(--text-muted);
+  margin-top: 0.5rem;
+}
+
+/* How to play */
+.how-to-play {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 2.5rem 2rem;
+}
+
+.steps-list {
+  list-style: none;
+  margin: 0 0 2.5rem;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.step-item {
+  display: flex;
+  gap: 1.25rem;
+  align-items: flex-start;
+  padding: 1.25rem;
+  background: var(--bg-elevated);
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+}
+
+.step-number {
+  flex-shrink: 0;
+  width: 2.25rem;
+  height: 2.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, var(--gold-dim), var(--gold));
+  color: var(--bg-deep);
+  font-weight: 700;
+  border-radius: 50%;
+  font-size: 0.95rem;
+}
+
+.step-item h3 {
+  color: var(--gold);
+  font-size: 1.1rem;
+}
+
+.step-item p {
+  color: var(--text-muted);
+  font-size: 0.95rem;
+  margin-top: 0.35rem;
+}
+
+.spreads-title {
+  text-align: center;
+  margin-bottom: 1.25rem;
+  color: var(--text-bright);
+}
+
+.spreads-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.spread-card {
+  padding: 1.25rem;
+  background: var(--bg-elevated);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  text-align: center;
+}
+
+.spread-card p {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  margin-top: 0.35rem;
+}
+
+.ethics-note {
+  text-align: center;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  font-style: italic;
+  padding-top: 1rem;
+  border-top: 1px solid var(--border);
+}
+
+/* Card list */
+.card-controls {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.search-input {
+  width: 100%;
+  padding: 0.85rem 1.25rem;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  color: var(--text-bright);
+  font-size: 1rem;
+}
+
+.search-input::placeholder {
+  color: var(--text-muted);
+}
+
+.search-input:focus {
+  outline: none;
+  border-color: var(--gold-dim);
+  box-shadow: 0 0 0 3px rgba(212, 168, 83, 0.15);
+}
+
+.filter-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  justify-content: center;
+}
+
+.filter-btn {
+  padding: 0.5rem 1rem;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  color: var(--text-muted);
+  font-size: 0.85rem;
+  transition: all 0.2s;
+}
+
+.filter-btn:hover {
+  border-color: var(--gold-dim);
+  color: var(--text-bright);
+}
+
+.filter-btn.active {
+  background: linear-gradient(135deg, var(--gold-dim), var(--gold));
+  color: var(--bg-deep);
+  border-color: transparent;
+  font-weight: 600;
+}
+
+.results-count {
+  text-align: center;
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  margin-bottom: 1.5rem;
+}
+
+.cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1.25rem;
+}
+
+.tarot-card {
+  display: flex;
+  flex-direction: column;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s;
+}
+
+.tarot-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(212, 168, 83, 0.35);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.35);
+}
+
+.tarot-card-link {
+  text-decoration: none;
+  color: inherit;
+}
+
+.tarot-card-link:hover {
+  color: inherit;
+}
+
+.tarot-card-link .tarot-card-body h3 {
+  color: var(--text-bright);
+}
+
+.see-more {
+  display: inline-block;
+  margin-top: 0.75rem;
+  font-size: 0.85rem;
+  color: var(--gold);
+  font-weight: 600;
+}
+
+/* Card images */
+.card-image-wrap {
+  overflow: hidden;
+  background: #1a1425;
+  border-bottom: 1px solid var(--border);
+}
+
+.card-image-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.card-image-wrap.reversed img {
+  transform: rotate(180deg);
+}
+
+.card-image-sm {
+  aspect-ratio: 2 / 3.4;
+  max-height: 220px;
+}
+
+.card-image-md {
+  aspect-ratio: 2 / 3.4;
+  max-width: 200px;
+}
+
+.card-image-lg {
+  aspect-ratio: 2 / 3.4;
+  max-width: 280px;
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
+}
+
+.card-image-fallback {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  height: 100%;
+  min-height: 160px;
+  color: var(--gold);
+  font-family: var(--font-display);
+  padding: 1rem;
+  text-align: center;
+}
+
+.card-image-fallback span:first-child {
+  font-size: 2rem;
+}
+
+.tarot-card-body {
+  padding: 1.25rem;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.tarot-card-badge {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--purple);
+  margin-bottom: 0.35rem;
+}
+
+.tarot-card-body h3 {
+  font-size: 1.35rem;
+  margin-bottom: 0.75rem;
+}
+
+.keywords {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  margin-bottom: 0.75rem;
+}
+
+.keyword {
+  font-size: 0.75rem;
+  padding: 0.2rem 0.55rem;
+  background: rgba(155, 109, 204, 0.15);
+  color: var(--purple);
+  border-radius: 4px;
+}
+
+.tarot-card-body p {
+  font-size: 0.92rem;
+  color: var(--text-muted);
+  flex: 1;
+}
+
+.no-results {
+  text-align: center;
+  color: var(--text-muted);
+  padding: 2rem;
+}
+
+.site-footer {
+  text-align: center;
+  margin-top: 4rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--border);
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+/* Guide page */
+.guide-main {
+  display: flex;
+  flex-direction: column;
+  gap: 4rem;
+  margin-top: 2rem;
+}
+
+.guide-hero {
+  margin-top: 1.5rem;
+}
+
+.guide-hero .section-label {
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+/* Modern reading experience (home) */
+.reading-experience {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding-bottom: 2rem;
+}
+
+.reading-header {
+  text-align: center;
+  margin-bottom: 2.5rem;
+}
+
+.reading-header h1 {
+  margin: 0.35rem 0 0.75rem;
+}
+
+.reading-header > p {
+  color: var(--text-muted);
+  max-width: 480px;
+  margin: 0 auto;
+}
+
+.reading-guide-link {
+  display: inline-block;
+  margin-top: 1rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.reading-panel {
+  background: linear-gradient(145deg, var(--bg-card) 0%, rgba(30, 24, 41, 0.9) 100%);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 1.75rem;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.35);
+  backdrop-filter: blur(8px);
+}
+
+.reading-question-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.reading-question-field span {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--gold);
+}
+
+.reading-question-field .optional-tag {
+  font-style: normal;
+  text-transform: none;
+  letter-spacing: 0;
+  color: var(--text-muted);
+  font-size: 0.75rem;
+}
+
+.reading-question-field input {
+  width: 100%;
+  padding: 1rem 1.15rem;
+  font-size: 1.05rem;
+  background: var(--bg-deep);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  color: var(--text-bright);
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.reading-question-field input:focus {
+  outline: none;
+  border-color: var(--gold-dim);
+  box-shadow: 0 0 0 3px rgba(212, 168, 83, 0.12);
+}
+
+.reading-question-field input:disabled {
+  opacity: 0.6;
+}
+
+.spread-options {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(155px, 1fr));
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
+}
+
+.spread-option {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.25rem;
+  padding: 1.15rem 1.25rem;
+  text-align: left;
+  background: var(--bg-deep);
+  border: 2px solid transparent;
+  border-radius: 14px;
+  color: var(--text);
+  transition: border-color 0.2s, background 0.2s, transform 0.2s;
+}
+
+.spread-option:hover:not(:disabled) {
+  border-color: rgba(212, 168, 83, 0.35);
+  transform: translateY(-2px);
+}
+
+.spread-option.active {
+  border-color: var(--gold);
+  background: rgba(212, 168, 83, 0.08);
+}
+
+.spread-option:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.spread-option-icon {
+  font-size: 1.5rem;
+  color: var(--gold);
+  line-height: 1;
+}
+
+.spread-option-title {
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--text-bright);
+}
+
+.spread-option-desc {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  line-height: 1.35;
+}
+
+.spread-option-count {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--purple);
+  margin-top: 0.35rem;
+}
+
+.reading-draw-btn {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.65rem;
+  padding: 1.1rem 1.5rem;
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--bg-deep);
+  background: linear-gradient(135deg, var(--gold) 0%, #e8c878 50%, var(--gold-dim) 100%);
+  border: none;
+  border-radius: 14px;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s, opacity 0.2s;
+  box-shadow: 0 8px 28px rgba(212, 168, 83, 0.35);
+}
+
+.reading-draw-btn:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 36px rgba(212, 168, 83, 0.45);
+}
+
+.reading-draw-btn:disabled {
+  opacity: 0.85;
+  cursor: wait;
+}
+
+.shuffle-spinner {
+  width: 1.1rem;
+  height: 1.1rem;
+  border: 2px solid rgba(13, 10, 20, 0.25);
+  border-top-color: var(--bg-deep);
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.shuffle-stage {
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+  margin: 2.5rem 0;
+  height: 120px;
+  align-items: center;
+}
+
+.shuffle-card {
+  width: 52px;
+  aspect-ratio: 2 / 3.4;
+  background: linear-gradient(160deg, #2a1f3d, #1a1425);
+  border: 1px solid var(--gold-dim);
+  border-radius: 8px;
+  animation: shuffle-float 0.8s ease-in-out infinite alternate;
+}
+
+@keyframes shuffle-float {
+  from { transform: translateY(0) rotate(-4deg); }
+  to { transform: translateY(-14px) rotate(4deg); }
+}
+
+.reading-results {
+  margin-top: 2.5rem;
+  animation: fade-up 0.5s ease-out;
+}
+
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.reading-question-display {
+  text-align: center;
+  padding: 1rem 1.25rem;
+  margin-bottom: 2rem;
+  background: var(--bg-card);
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  color: var(--text);
+  font-style: italic;
+}
+
+.reading-question-display span {
+  display: block;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--gold);
+  font-style: normal;
+  margin-bottom: 0.35rem;
+}
+
+.reading-board {
+  display: grid;
+  gap: 2rem;
+  justify-items: center;
+}
+
+.reading-board--one {
+  grid-template-columns: 1fr;
+  max-width: 320px;
+  margin: 0 auto;
+}
+
+.reading-board--three {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+/* Cruz de 5 cartas */
+.layout-cross-5 {
+  grid-template-columns: 1fr 1.15fr 1fr;
+  grid-template-areas:
+    '. pos2 .'
+    'pos3 pos1 pos4'
+    '. pos5 .';
+  max-width: 920px;
+  margin: 0 auto;
+  align-items: start;
+}
+
+.layout-cross-5 .reading-card-slot[data-position='1'] { grid-area: pos1; }
+.layout-cross-5 .reading-card-slot[data-position='2'] { grid-area: pos2; }
+.layout-cross-5 .reading-card-slot[data-position='3'] { grid-area: pos3; }
+.layout-cross-5 .reading-card-slot[data-position='4'] { grid-area: pos4; }
+.layout-cross-5 .reading-card-slot[data-position='5'] { grid-area: pos5; }
+
+/* Ferradura e Cruz Celta — grade flexível */
+.layout-horseshoe,
+.layout-celtic,
+.layout-line {
+  grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+}
+
+.reading-board--seven .reading-card-slot .card-image-lg,
+.reading-board--ten .reading-card-slot .card-image-lg {
+  max-width: 150px;
+}
+
+.reading-board--ten .reading-card-meta {
+  max-width: 200px;
+}
+
+.reading-board--ten .reading-card-desc {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.reading-card-slot {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  animation: card-reveal 0.6s ease-out both;
+}
+
+@keyframes card-reveal {
+  from {
+    opacity: 0;
+    transform: translateY(24px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.reading-position {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--gold);
+  margin-bottom: 0.85rem;
+}
+
+.reading-card-slot .card-image-lg {
+  width: 100%;
+  max-width: 200px;
+}
+
+.reading-card-meta {
+  margin-top: 1.25rem;
+  max-width: 280px;
+}
+
+.reading-card-meta h3 {
+  font-size: 1.25rem;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.reversed-badge {
+  font-size: 0.65rem;
+  font-family: var(--font-body);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  padding: 0.2rem 0.5rem;
+  background: rgba(155, 109, 204, 0.25);
+  color: var(--purple);
+  border-radius: 4px;
+}
+
+.reading-card-desc {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  margin-top: 0.5rem;
+  line-height: 1.55;
+}
+
+.card-detail-link {
+  display: inline-block;
+  margin-top: 0.75rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.reading-summary {
+  margin-top: 3rem;
+  padding: 2rem;
+  background: linear-gradient(160deg, rgba(212, 168, 83, 0.08) 0%, var(--bg-card) 40%);
+  border: 1px solid rgba(212, 168, 83, 0.25);
+  border-radius: 20px;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
+}
+
+.reading-summary h2 {
+  font-size: 1.5rem;
+  color: var(--gold);
+  margin-bottom: 0.35rem;
+}
+
+.summary-spread-name {
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--text-muted);
+  margin-bottom: 1.25rem;
+}
+
+.summary-paragraph {
+  color: var(--text);
+  line-height: 1.7;
+  margin-bottom: 1rem;
+}
+
+.summary-paragraph:last-child {
+  margin-bottom: 0;
+}
+
+/* Card detail page */
+.card-page {
+  padding: 1rem 0 3rem;
+}
+
+.back-link {
+  display: inline-block;
+  margin-bottom: 2rem;
+  font-size: 0.95rem;
+}
+
+.card-page-layout {
+  display: grid;
+  grid-template-columns: minmax(200px, 280px) 1fr;
+  gap: 2.5rem;
+  align-items: start;
+}
+
+.card-page-image {
+  margin: 0 auto;
+}
+
+.card-page-content h1 {
+  margin: 0.5rem 0 1rem;
+}
+
+.card-page-number {
+  display: block;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  margin-bottom: 0.25rem;
+}
+
+.card-page-description {
+  margin-top: 1.5rem;
+}
+
+.card-page-description h2 {
+  font-size: 1.25rem;
+  color: var(--gold);
+  margin-bottom: 0.75rem;
+}
+
+.card-page-description p {
+  color: var(--text);
+  font-size: 1.05rem;
+  line-height: 1.7;
+}
+
+.card-page-nav {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-top: 2.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--border);
+}
+
+.card-nav-link {
+  font-size: 0.9rem;
+  max-width: 45%;
+}
+
+.card-nav-link.next {
+  text-align: right;
+  margin-left: auto;
+}
+
+@media (max-width: 640px) {
+  .how-to-play {
+    padding: 1.75rem 1.25rem;
+  }
+
+  .step-item {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .cards-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .spread-options {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .reading-board--three {
+    grid-template-columns: 1fr;
+  }
+
+  .layout-cross-5 {
+    grid-template-columns: 1fr;
+    grid-template-areas: unset;
+  }
+
+  .layout-cross-5 .reading-card-slot[data-position] {
+    grid-area: unset;
+  }
+
+  .reading-panel {
+    padding: 1.25rem;
+  }
+
+  .reading-summary {
+    padding: 1.5rem;
+  }
+
+  .card-page-layout {
+    grid-template-columns: 1fr;
+    justify-items: center;
+  }
+
+  .card-page-content {
+    text-align: center;
+  }
+
+  .card-page-nav {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .card-nav-link {
+    max-width: 100%;
+    text-align: left !important;
+  }
+}
